@@ -1,12 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import colors from '../config/colors';
 
 const Card = ({text}) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} activeOpacity={0.5}>
       <Text style={styles.heading}>{text}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

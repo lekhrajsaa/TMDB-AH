@@ -1,10 +1,10 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import Svg, {Path} from 'react-native-svg';
 
 const Notification = props => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container}>
       <Svg
         width="24"
         height="24"
@@ -22,7 +22,7 @@ const Notification = props => {
           fill="#FF2E2E"
         />
       </Svg>
-    </View>
+    </TouchableOpacity>
   );
 };
 
