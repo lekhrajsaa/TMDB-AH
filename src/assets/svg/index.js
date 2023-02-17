@@ -1,7 +1,13 @@
 export {default as Bookmark} from './Bookmark';
 export {default as BookmarkCopy} from './BookmarkCopy';
 export {default as BookmarkCopy2} from './BookmarkCopy2';
+export {default as BookmarkCopy3} from './BookmarkCopy3';
 export {default as Clock} from './Clock';
 export {default as Menu} from './Menu';
 export {default as Notification} from './Notification';
 export {default as Star} from './Star';
+export {default as Search} from './Search';
+export {default as SearchBar} from './SearchBar';
+export {default as Back} from './Back';
+export {default as ThreeDots} from './ThreeDots';
+export {default as Play} from './Play';

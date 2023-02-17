@@ -1,11 +1,14 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Star} from '../assets/svg';
 import colors from '../config/colors';
 
-const NowShowingCard = ({movieName, moiveImageSrc, movieRating}) => {
+const NowShowingCard = ({movieName, moiveImageSrc, movieRating, onPress}) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={onPress}
+      activeOpacity={0.8}>
       <Image source={{uri: moiveImageSrc}} style={styles.image} />
 
       <Text style={styles.movieName}>{movieName}</Text>
@@ -13,7 +16,7 @@ const NowShowingCard = ({movieName, moiveImageSrc, movieRating}) => {
         <Star />
         <Text style={styles.rating}>{`${movieRating}/10 IMDb`}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

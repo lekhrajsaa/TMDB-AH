@@ -12,9 +12,9 @@ import {
 import {
   Notification,
   Bookmark,
-  BookmarkCopy,
   BookmarkCopy2,
   Menu,
+  Search,
 } from '../assets/svg';
 import {Card, MyStatusBar, NowShowingCard, PopularCard} from '../components';
 import colors from '../config/colors';
@@ -23,7 +23,7 @@ import {API_KEY} from '../utils/apiKey';
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
 
-const HomePage = props => {
+const HomePage = ({navigation}) => {
   const [bottomBarHeight, setBottomBarHeight] = useState(0);
 
   const [loading, setLoading] = useState(false);
@@ -38,9 +38,8 @@ const HomePage = props => {
       `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`,
     );
     setTrendingMovies(response.data.results);
+    console.log('MOVIES', response.data.results);
     setLoading(false);
-    console.log(response.data.results);
-    //https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jp
   };
   const renderMovies = items => {
     return (
@@ -48,6 +47,15 @@ const HomePage = props => {
         movieName={items.original_title}
         movieRating={items.vote_average}
         moiveImageSrc={`https://image.tmdb.org/t/p/w500${items.poster_path}`}
+        onPress={() => {
+          navigation.navigate('Description', {
+            title: items.original_title,
+            rating: items.vote_average,
+            poster: items.backdrop_path,
+            description: items.overview,
+            language: items.original_language,
+          });
+        }}
       />
     );
   };
@@ -59,6 +67,15 @@ const HomePage = props => {
         movieRating={items.vote_average}
         movieDuration={'1h 47m'}
         movieType={['HORROR', 'MYSTERY', 'THRILLER']}
+        onPress={() => {
+          navigation.navigate('Description', {
+            title: items.original_title,
+            rating: items.vote_average,
+            poster: items.backdrop_path,
+            description: items.overview,
+            language: items.original_language,
+          });
+        }}
       />
     );
   };
@@ -118,7 +135,11 @@ const HomePage = props => {
         }}
         style={styles.bottomBar}>
         <Bookmark />
-        <BookmarkCopy />
+        <Search
+          onPress={() => {
+            navigation.navigate('Search');
+          }}
+        />
         <BookmarkCopy2 />
       </View>
     </View>

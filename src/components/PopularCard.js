@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Clock, Star} from '../assets/svg';
 import colors from '../config/colors';
 import Card from './Card';
@@ -10,9 +10,13 @@ const PopularCard = ({
   movieRating,
   movieDuration,
   movieType,
+  onPress,
 }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={onPress}
+      activeOpacity={0.8}>
       <Image source={{uri: movieImageSrc}} style={styles.image} />
 
       <View style={styles.movieDescription}>
@@ -34,7 +38,7 @@ const PopularCard = ({
           <Text style={styles.duration}>{movieDuration}</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
