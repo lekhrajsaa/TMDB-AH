@@ -9,4 +9,6 @@ export default {
   varientGrey: '#9C9C9C',
   shadowColor: '#D8D8D8',
   white: '#ffffff',
+  lightBlue: '#DBE3FF',
+  puprle: '#88A4E8',
 };

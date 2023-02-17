@@ -1,14 +1,13 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import Star from '../assets/svg/Star';
+import {Star} from '../assets/svg';
 import colors from '../config/colors';
 
 const NowShowingCard = ({movieName, moiveImageSrc, movieRating}) => {
   return (
     <View style={styles.container}>
-      <View style={styles.image}>
-        <Image source={moiveImageSrc} />
-      </View>
+      <Image source={moiveImageSrc} style={styles.image} />
+
       <Text style={styles.movieName}>{movieName}</Text>
       <View style={styles.ratingContainer}>
         <Star />
@@ -20,14 +19,14 @@ const NowShowingCard = ({movieName, moiveImageSrc, movieRating}) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 143,
+    marginEnd: 16,
   },
-  ratingContainer: {
-    marginTop: 4,
-    flexDirection: 'row',
-    alignItems: 'center',
+  image: {
+    height: 210,
+    width: 140,
   },
   movieName: {
+    width: 140,
     marginTop: 12,
     fontFamily: 'Mulish-Regular',
     fontWeight: '700',
@@ -42,14 +41,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: colors.varientGrey,
   },
-  image: {
-    overflow: 'hidden',
-    borderRadius: 5,
-    shadowColor: colors.shadowColor,
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 15,
+  ratingContainer: {
+    marginTop: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 

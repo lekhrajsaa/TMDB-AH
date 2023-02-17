@@ -1,19 +1,28 @@
-import React from 'react';
-import {Dimensions, FlatList, StyleSheet, Text, View} from 'react-native';
-import Bookmark from '../assets/svg/Bookmark';
-import BookmarkCopy from '../assets/svg/BookmarkCopy';
-import BookmarkCopy2 from '../assets/svg/BookmarkCopy2';
-import Menu from '../assets/svg/Menu';
-import Notification from '../assets/svg/Notification';
-import Card from '../components/Card';
-import MyStatusBar from '../components/MyStatusBar';
-import NowShowingCard from '../components/NowShowingCard';
+import React, {useState} from 'react';
+import {
+  Dimensions,
+  FlatList,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import {
+  Notification,
+  Bookmark,
+  BookmarkCopy,
+  BookmarkCopy2,
+  Menu,
+} from '../assets/svg';
+import {Card, MyStatusBar, NowShowingCard, PopularCard} from '../components';
 import colors from '../config/colors';
+import {vs} from '../utils/scalingUtils';
 
-const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height;
+const width = Dimensions.get('screen').width;
+const height = Dimensions.get('screen').height;
 
 const HomePage = props => {
+  const [bottomBarHeight, setBottomBarHeight] = useState(0);
   const movies = [
     {
       id: 1,
@@ -34,20 +43,47 @@ const HomePage = props => {
       moiveImageSrc: require('../assets/images/SpiderMan.png'),
     },
   ];
+  const popular = [
+    {
+      id: 1,
+      movieImageSrc: require('../assets/images/Venom.png'),
+      movieName: 'Venom Let There Be Carnage',
+      movieRating: '6.4',
+      movieDuration: '1h 47m',
+      movieType: ['HORROR', 'MYSTERY', 'THRILLER'],
+    },
+    {
+      id: 2,
+      movieImageSrc: require('../assets/images/Venom.png'),
+      movieName: 'The King’s Man',
+      movieRating: '8.4',
+      movieDuration: '1h 47m',
+      movieType: ['ACTION', 'FANTASY'],
+    },
+  ];
 
   const renderMovies = items => {
     return (
-      <View style={styles.moviesCardContainer}>
-        <NowShowingCard
-          movieName={items.movieName}
-          movieRating={items.movieRating}
-          moiveImageSrc={items.moiveImageSrc}
-        />
-      </View>
+      <NowShowingCard
+        movieName={items.movieName}
+        movieRating={items.movieRating}
+        moiveImageSrc={items.moiveImageSrc}
+      />
+    );
+  };
+  const renderPopular = items => {
+    return (
+      <PopularCard
+        movieImageSrc={items.movieImageSrc}
+        movieName={items.movieName}
+        movieRating={items.movieRating}
+        movieDuration={items.movieDuration}
+        movieType={items.movieType}
+      />
     );
   };
   return (
-    <View style={styles.container}>
+    <View style={styles.container} nestedScrollEnabled={true}>
       <MyStatusBar color={'transparent'} />
       <View style={styles.leftView} />
       <View style={styles.rightView} />
@@ -58,21 +94,45 @@ const HomePage = props => {
         <Notification />
       </View>
 
-      <View style={styles.header}>
-        <Text style={styles.heading}>Now Showing</Text>
+      <View>
+        <View style={styles.headerMovie}>
+          <Text style={styles.heading}>Now Showing</Text>
+          <Card text={'See more'} />
+        </View>
+
+        <FlatList
+          style={styles.nowShowing}
+          contentContainerStyle={styles.nowShowingContainer}
+          data={movies}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => renderMovies(item)}
+        />
+      </View>
+
+      <View style={styles.headerMovie}>
+        <Text style={styles.heading}>Popular</Text>
         <Card text={'See more'} />
       </View>
 
       <FlatList
-        style={styles.nowShowing}
-        data={movies}
-        horizontal
-        showsHorizontalScrollIndicator={false}
+        style={styles.popular}
+        contentContainerStyle={{paddingBottom: bottomBarHeight}}
+        data={popular}
+        showsVerticalScrollIndicator={false}
         keyExtractor={item => item.id}
-        renderItem={({item}) => renderMovies(item)}
+        renderItem={({item}) => renderPopular(item)}
       />
-
-      <View style={styles.bottomBar}>
+      <View
+        onLayout={({
+          nativeEvent: {
+            layout: {height},
+          },
+        }) => {
+          setBottomBarHeight(height);
+        }}
+        style={styles.bottomBar}>
         <Bookmark />
         <BookmarkCopy />
         <BookmarkCopy2 />
@@ -82,8 +142,47 @@ const HomePage = props => {
 };
 
 const styles = StyleSheet.create({
+  bottomBar: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    flexDirection: 'row',
+    borderTopWidth: 1,
+    borderTopColor: colors.lightGrey,
+    backgroundColor: colors.white,
+    paddingHorizontal: 40,
+    paddingVertical: 8,
+    justifyContent: 'space-between',
+    zIndex: 1,
+    // shadowColor: colors.darkGrey,
+    // shadowOffset: {width: 0, height: 2},
+    // shadowOpacity: 0.8,
+    // shadowRadius: 2,
+    // elevation: 20,
+  },
   container: {
     flex: 1,
+    paddingTop: StatusBar.currentHeight,
+  },
+  header: {
+    flexDirection: 'row',
+    padding: 8,
+    justifyContent: 'space-between',
+    marginHorizontal: 16,
+  },
+  headerMovie: {
+    flexDirection: 'row',
+    marginTop: 20,
+    marginHorizontal: 16,
+    padding: 8,
+    justifyContent: 'space-between',
+  },
+  heading: {
+    fontFamily: 'Merriweather-Regular',
+    fontWeight: '900',
+    fontSize: 16,
+    alignSelf: 'center',
+    color: colors.blueVarient,
   },
   leftView: {
     position: 'absolute',
@@ -93,6 +192,19 @@ const styles = StyleSheet.create({
     width: width / 4,
     backgroundColor: colors.primary2,
   },
+  nowShowing: {
+    marginStart: 24,
+    marginTop: 8,
+    flexGrow: 0,
+  },
+  nowShowingContainer: {
+    paddingEnd: 12,
+  },
+  popular: {
+    marginStart: 24,
+    marginTop: 8,
+    flexGrow: 0,
+  },
   rightView: {
     position: 'absolute',
     top: 0,
@@ -100,47 +212,6 @@ const styles = StyleSheet.create({
     height: height,
     width: (width * 3) / 4,
     backgroundColor: colors.white,
-  },
-  header: {
-    flexDirection: 'row',
-    marginTop: 40,
-    padding: 8,
-    justifyContent: 'space-between',
-    marginStart: 20,
-    marginEnd: 20,
-  },
-  heading: {
-    fontFamily: 'Merriweather-Regular',
-    fontWeight: '900',
-    fontSize: 16,
-    alignSelf: 'center',
-    color: colors.blueVarient,
-  },
-  nowShowing: {
-    marginStart: 28,
-    marginTop: 8,
-    flexGrow: 0,
-  },
-  moviesCardContainer: {
-    marginEnd: 16,
-  },
-  bottomBar: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    flexDirection: 'row',
-    borderTopWidth: 0.2,
-    borderTopColor: colors.lightGrey,
-    backgroundColor: colors.white,
-    zIndex: 1,
-    shadowColor: colors.darkGrey,
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 20,
-    paddingHorizontal: 50,
-    paddingVertical: 20,
-    justifyContent: 'space-between',
   },
 });
 

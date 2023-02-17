@@ -2,10 +2,26 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import colors from '../config/colors';
 
-const Card = ({text}) => {
+const Card = ({text, varient}) => {
   return (
-    <TouchableOpacity style={styles.container} activeOpacity={0.5}>
-      <Text style={styles.heading}>{text}</Text>
+    <TouchableOpacity
+      activeOpacity={varient === 'Secondary' ? 1 : 0.5}
+      style={{
+        ...styles.container,
+        backgroundColor: varient === 'Secondary' ? colors.lightBlue : '',
+        paddingVertical: varient === 'Secondary' ? 1 : 4,
+        borderColor:
+          varient === 'Secondary' ? colors.lightBlue : colors.lightGrey,
+        marginEnd: varient === 'Secondary' ? 4 : 0,
+      }}>
+      <Text
+        style={{
+          ...styles.heading,
+          color: varient === 'Secondary' ? colors.puprle : colors.grey,
+          fontSize: varient === 'Secondary' ? 7 : 10,
+        }}>
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -15,17 +31,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 12,
-    paddingVertical: 4,
     paddingHorizontal: 8,
     borderWidth: 1,
-    borderColor: colors.lightGrey,
   },
   heading: {
     fontFamily: 'Mulish-Regular',
     fontWeight: '400',
-    fontSize: 10,
     lineHeight: 12,
-    color: colors.grey,
   },
 });
 
