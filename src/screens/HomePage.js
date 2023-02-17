@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {
+  ActivityIndicator,
   Dimensions,
   FlatList,
   StatusBar,
@@ -16,73 +18,55 @@ import {
 } from '../assets/svg';
 import {Card, MyStatusBar, NowShowingCard, PopularCard} from '../components';
 import colors from '../config/colors';
-import {vs} from '../utils/scalingUtils';
+import {API_KEY} from '../utils/apiKey';
 
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
 
 const HomePage = props => {
   const [bottomBarHeight, setBottomBarHeight] = useState(0);
-  const movies = [
-    {
-      id: 1,
-      movieName: 'Spiderman: No Way Home',
-      movieRating: '9.1',
-      moiveImageSrc: require('../assets/images/SpiderMan.png'),
-    },
-    {
-      id: 2,
-      movieName: 'Eternals',
-      movieRating: '9.5',
-      moiveImageSrc: require('../assets/images/SpiderMan.png'),
-    },
-    {
-      id: 3,
-      movieName: 'Shang-Chi',
-      movieRating: '8.1',
-      moiveImageSrc: require('../assets/images/SpiderMan.png'),
-    },
-  ];
-  const popular = [
-    {
-      id: 1,
-      movieImageSrc: require('../assets/images/Venom.png'),
-      movieName: 'Venom Let There Be Carnage',
-      movieRating: '6.4',
-      movieDuration: '1h 47m',
-      movieType: ['HORROR', 'MYSTERY', 'THRILLER'],
-    },
-    {
-      id: 2,
-      movieImageSrc: require('../assets/images/Venom.png'),
-      movieName: 'The King’s Man',
-      movieRating: '8.4',
-      movieDuration: '1h 47m',
-      movieType: ['ACTION', 'FANTASY'],
-    },
-  ];
 
+  const [loading, setLoading] = useState(false);
+  const [trendingMovies, setTrendingMovies] = useState([]);
+
+  useEffect(() => {
+    getTrendingMovies();
+  }, []);
+  const getTrendingMovies = async () => {
+    setLoading(true);
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`,
+    );
+    setTrendingMovies(response.data.results);
+    setLoading(false);
+    console.log(response.data.results);
+    //https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jp
+  };
   const renderMovies = items => {
     return (
       <NowShowingCard
-        movieName={items.movieName}
-        movieRating={items.movieRating}
-        moiveImageSrc={items.moiveImageSrc}
+        movieName={items.original_title}
+        movieRating={items.vote_average}
+        moiveImageSrc={`https://image.tmdb.org/t/p/w500${items.poster_path}`}
       />
     );
   };
   const renderPopular = items => {
     return (
       <PopularCard
-        movieImageSrc={items.movieImageSrc}
-        movieName={items.movieName}
-        movieRating={items.movieRating}
-        movieDuration={items.movieDuration}
-        movieType={items.movieType}
+        movieImageSrc={`https://image.tmdb.org/t/p/w500${items.poster_path}`}
+        movieName={items.original_title}
+        movieRating={items.vote_average}
+        movieDuration={'1h 47m'}
+        movieType={['HORROR', 'MYSTERY', 'THRILLER']}
       />
     );
   };
-  return (
+  return loading ? (
+    <View style={styles.activityIndicatorContainer}>
+      <ActivityIndicator size="large" color={colors.puprle} />
+    </View>
+  ) : (
     <View style={styles.container} nestedScrollEnabled={true}>
       <MyStatusBar color={'transparent'} />
       <View style={styles.leftView} />
@@ -103,7 +87,7 @@ const HomePage = props => {
         <FlatList
           style={styles.nowShowing}
           contentContainerStyle={styles.nowShowingContainer}
-          data={movies}
+          data={trendingMovies}
           horizontal
           showsHorizontalScrollIndicator={false}
           keyExtractor={item => item.id}
@@ -119,7 +103,7 @@ const HomePage = props => {
       <FlatList
         style={styles.popular}
         contentContainerStyle={{paddingBottom: bottomBarHeight}}
-        data={popular}
+        data={trendingMovies}
         showsVerticalScrollIndicator={false}
         keyExtractor={item => item.id}
         renderItem={({item}) => renderPopular(item)}
@@ -142,6 +126,11 @@ const HomePage = props => {
 };
 
 const styles = StyleSheet.create({
+  activityIndicatorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   bottomBar: {
     position: 'absolute',
     bottom: 0,

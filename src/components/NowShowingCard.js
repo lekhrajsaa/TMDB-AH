@@ -6,7 +6,7 @@ import colors from '../config/colors';
 const NowShowingCard = ({movieName, moiveImageSrc, movieRating}) => {
   return (
     <View style={styles.container}>
-      <Image source={moiveImageSrc} style={styles.image} />
+      <Image source={{uri: moiveImageSrc}} style={styles.image} />
 
       <Text style={styles.movieName}>{movieName}</Text>
       <View style={styles.ratingContainer}>
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
   image: {
     height: 210,
     width: 140,
+    borderRadius: 5,
   },
   movieName: {
     width: 140,

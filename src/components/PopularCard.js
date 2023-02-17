@@ -13,7 +13,7 @@ const PopularCard = ({
 }) => {
   return (
     <View style={styles.container}>
-      <Image source={movieImageSrc} style={styles.image} />
+      <Image source={{uri: movieImageSrc}} style={styles.image} />
 
       <View style={styles.movieDescription}>
         <Text style={styles.movieName}>{movieName}</Text>
