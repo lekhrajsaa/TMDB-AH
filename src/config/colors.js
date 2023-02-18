@@ -11,4 +11,6 @@ export default {
   white: '#ffffff',
   lightBlue: '#DBE3FF',
   puprle: '#88A4E8',
+  selected: '#110E47',
+  notSelected: '#BCBCCD',
 };

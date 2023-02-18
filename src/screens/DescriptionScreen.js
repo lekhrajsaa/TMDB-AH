@@ -11,8 +11,8 @@ import {Back, BookmarkCopy3, Play, Star, ThreeDots} from '../assets/svg';
 import {Card, Cast, MyStatusBar} from '../components';
 import colors from '../config/colors';
 
-const DescriptionScreen = ({route}) => {
-  const {title, rating, poster, description, language} = route.params;
+const DescriptionScreen = ({navigation, route}) => {
+  const {title, rating, poster, description, language, back} = route.params;
   const allLanguages = {
     en: 'English',
     ja: 'Japanese',
@@ -30,7 +30,11 @@ const DescriptionScreen = ({route}) => {
       />
 
       <View style={styles.header}>
-        <Back />
+        <Back
+          onPress={() => {
+            navigation.navigate(`${back}`);
+          }}
+        />
         <ThreeDots />
       </View>
 
@@ -108,7 +112,6 @@ const styles = StyleSheet.create({
   castContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: colors.white,
   },
   castHeaderContainer: {
     marginTop: 24,
@@ -117,6 +120,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    backgroundColor: colors.white,
   },
   description: {
     marginTop: 8,

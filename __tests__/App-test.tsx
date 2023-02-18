@@ -1,14 +1,16 @@
-/**
- * @format
- */
-
-import 'react-native';
 import React from 'react';
+import renderer from 'react-test-renderer';
+import {fireEvent, render} from '@testing-library/react-native';
 import App from '../App';
 
-// Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
+test('renders correctly', () => {
+  const tree = renderer.create(<App />).toJSON();
+  expect(tree).toMatchSnapshot();
 
-it('renders correctly', () => {
-  renderer.create(<App />);
+  // const {getByTestId} = render(<HomeScreen navigation={undefined} />);
+  // const button = getByTestId('test');
+  // const text = getByTestId('text');
+
+  // fireEvent.changeText(text, 'Showing');
+  // fireEvent.press(button);
 });

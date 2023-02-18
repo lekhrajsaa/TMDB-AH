@@ -23,7 +23,7 @@ import {API_KEY} from '../utils/apiKey';
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
 
-const HomePage = ({navigation}) => {
+const HomeScreen = ({navigation}) => {
   const [bottomBarHeight, setBottomBarHeight] = useState(0);
 
   const [loading, setLoading] = useState(false);
@@ -31,16 +31,23 @@ const HomePage = ({navigation}) => {
 
   useEffect(() => {
     getTrendingMovies();
+    // getMovie();
   }, []);
   const getTrendingMovies = async () => {
     setLoading(true);
     const response = await axios.get(
-      `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`,
+      `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`,
     );
     setTrendingMovies(response.data.results);
     console.log('MOVIES', response.data.results);
     setLoading(false);
   };
+  // const getMovie = async () => {
+  //   const response = await axios.get(
+  //     `https://api.themoviedb.org/3/movie/505642?api_key=${API_KEY}`,
+  //   );
+  //   console.log('PARTICULAR_MOVIE : ', response.data);
+  // };
   const renderMovies = items => {
     return (
       <NowShowingCard
@@ -54,6 +61,7 @@ const HomePage = ({navigation}) => {
             poster: items.backdrop_path,
             description: items.overview,
             language: items.original_language,
+            back: 'Home',
           });
         }}
       />
@@ -74,16 +82,13 @@ const HomePage = ({navigation}) => {
             poster: items.backdrop_path,
             description: items.overview,
             language: items.original_language,
+            back: 'Home',
           });
         }}
       />
     );
   };
-  return loading ? (
-    <View style={styles.activityIndicatorContainer}>
-      <ActivityIndicator size="large" color={colors.puprle} />
-    </View>
-  ) : (
+  return (
     <View style={styles.container} nestedScrollEnabled={true}>
       <MyStatusBar color={'transparent'} />
       <View style={styles.leftView} />
@@ -91,7 +96,9 @@ const HomePage = ({navigation}) => {
 
       <View style={styles.header}>
         <Menu />
-        <Text style={styles.heading}>FilmKu</Text>
+        <Text style={styles.heading} testID="text">
+          FilmKu
+        </Text>
         <Notification />
       </View>
 
@@ -101,15 +108,21 @@ const HomePage = ({navigation}) => {
           <Card text={'See more'} />
         </View>
 
-        <FlatList
-          style={styles.nowShowing}
-          contentContainerStyle={styles.nowShowingContainer}
-          data={trendingMovies}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={item => item.id}
-          renderItem={({item}) => renderMovies(item)}
-        />
+        {loading ? (
+          <View style={styles.activityIndicatorContainer}>
+            <ActivityIndicator size="large" color={colors.puprle} />
+          </View>
+        ) : (
+          <FlatList
+            style={styles.nowShowing}
+            contentContainerStyle={styles.nowShowingContainer}
+            data={trendingMovies}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={item => item.id}
+            renderItem={({item}) => renderMovies(item)}
+          />
+        )}
       </View>
 
       <View style={styles.headerMovie}>
@@ -117,14 +130,20 @@ const HomePage = ({navigation}) => {
         <Card text={'See more'} />
       </View>
 
-      <FlatList
-        style={styles.popular}
-        contentContainerStyle={{paddingBottom: bottomBarHeight}}
-        data={trendingMovies}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => renderPopular(item)}
-      />
+      {loading ? (
+        <View style={styles.activityIndicatorContainer}>
+          <ActivityIndicator size="large" color={colors.puprle} />
+        </View>
+      ) : (
+        <FlatList
+          style={styles.popular}
+          contentContainerStyle={{paddingBottom: bottomBarHeight}}
+          data={trendingMovies}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => renderPopular(item)}
+        />
+      )}
       <View
         onLayout={({
           nativeEvent: {
@@ -134,11 +153,12 @@ const HomePage = ({navigation}) => {
           setBottomBarHeight(height);
         }}
         style={styles.bottomBar}>
-        <Bookmark />
+        <Bookmark color={colors.selected} />
         <Search
           onPress={() => {
             navigation.navigate('Search');
           }}
+          color={colors.notSelected}
         />
         <BookmarkCopy2 />
       </View>
@@ -148,8 +168,7 @@ const HomePage = ({navigation}) => {
 
 const styles = StyleSheet.create({
   activityIndicatorContainer: {
-    flex: 1,
-    justifyContent: 'center',
+    marginTop: 24,
     alignItems: 'center',
   },
   bottomBar: {
@@ -172,7 +191,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingTop: StatusBar.currentHeight,
+    paddingTop: StatusBar.currentHeight + 20,
   },
   header: {
     flexDirection: 'row',
@@ -225,4 +244,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomePage;
+export default HomeScreen;
