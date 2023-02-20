@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   name: {
     width: 72,
     fontFamily: 'Mulish-Regular',
-    fontWeight: '400',
+    //fontWeight: '400',
     fontSize: 12,
     color: colors.blueVarient,
   },

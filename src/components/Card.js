@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontFamily: 'Mulish-Regular',
-    fontWeight: '400',
+    //fontWeight: '400',
     lineHeight: 12,
   },
 });

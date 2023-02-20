@@ -6,6 +6,9 @@ const movieSlice = createSlice({
     movies: [],
   },
   reducers: {
+    setMovies: (state, action) => {
+      state.movies = action.payload.movie;
+    },
     addMovies: (state, action) => {
       state.movies.push(action.payload.movie);
     },
@@ -15,6 +18,7 @@ const movieSlice = createSlice({
   },
 });
 
+export const setMovies = movieSlice.actions.setMovies;
 export const addMovies = movieSlice.actions.addMovies;
 export const removeMovies = movieSlice.actions.removeMovies;
 export default movieSlice.reducer;

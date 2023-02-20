@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   duration: {
     marginStart: 4,
     fontFamily: 'Mulish-Regular',
-    fontWeight: '400',
+    //fontWeight: '400',
     fontSize: 12,
     color: colors.black,
   },
@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
     marginStart: 14,
   },
   movieName: {
-    fontFamily: 'Mulish-Regular',
-    fontWeight: '700',
+    fontFamily: 'Mulish-Bold',
+    //fontWeight: '700',
     fontSize: 14,
     width: 120,
     color: colors.black,
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   rating: {
     marginStart: 4,
     fontFamily: 'Mulish-Regular',
-    fontWeight: '400',
+    //fontWeight: '400',
     fontSize: 12,
     color: colors.varientGrey,
   },

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
 import {
   ActivityIndicator,
   FlatList,
@@ -8,6 +9,7 @@ import {
   View,
   TextInput,
   StatusBar,
+  Keyboard,
 } from 'react-native';
 import {Bookmark, BookmarkCopy2, Search, SearchBar} from '../assets/svg';
 import {Card, PopularCard} from '../components';
@@ -21,16 +23,22 @@ const SearchScreen = ({navigation}) => {
   const [movies, setMovies] = useState([]);
   const [searchMovie, setSearchMovie] = useState('');
 
+  const trendingMovies = useSelector(state => state.name.movies);
+
   useEffect(() => {
     getTrendingMovies();
   }, []);
   const getTrendingMovies = async () => {
-    setLoading(true);
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`,
-    );
-    setMovies(response.data.results);
-    setLoading(false);
+    if (trendingMovies.length) {
+      setMovies(trendingMovies);
+    } else {
+      setLoading(true);
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`,
+      );
+      setMovies(response.data.results);
+      setLoading(false);
+    }
   };
   const getSearchedMovie = async () => {
     setLoading(true);
@@ -75,12 +83,14 @@ const SearchScreen = ({navigation}) => {
             }}
             onEndEditing={() => {
               getSearchedMovie();
+              Keyboard.dismiss();
             }}
           />
           <SearchBar
             customStyles={styles.searchIcon}
             onPress={() => {
               getSearchedMovie();
+              Keyboard.dismiss();
             }}
           />
         </View>
@@ -167,8 +177,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   heading: {
-    fontFamily: 'Merriweather-Regular',
-    fontWeight: '900',
+    fontFamily: 'Merriweather-Black',
+    //fontWeight: '900',
     fontSize: 16,
     color: colors.blueVarient,
   },

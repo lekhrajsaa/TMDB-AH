@@ -21,7 +21,10 @@ const DescriptionScreen = ({navigation, route}) => {
   };
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={styles.container}
+      showsVerticalScrollIndicator={false}
+      nestedScrollEnabled={false}>
       <MyStatusBar color={'transparent'} barstyle={true} />
 
       <Image
@@ -77,7 +80,11 @@ const DescriptionScreen = ({navigation, route}) => {
 
         <View style={styles.descriptionContainer}>
           <Text style={styles.heading}>Description</Text>
-          <Text style={styles.description}>{description}</Text>
+          <ScrollView
+            style={styles.scrollViewDescription}
+            nestedScrollEnabled={true}>
+            <Text style={styles.description}>{description}</Text>
+          </ScrollView>
         </View>
 
         <View style={styles.castHeaderContainer}>
@@ -123,10 +130,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   description: {
-    marginTop: 8,
     marginEnd: 24,
     fontFamily: 'Mulish-Regular',
-    fontWeight: '400',
+    //fontWeight: '400',
     fontSize: 12,
     lineHeight: 20,
     color: colors.varientGrey,
@@ -135,14 +141,14 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   detail: {
-    fontFamily: 'Mulish-Regular',
-    fontWeight: '600',
+    fontFamily: 'Mulish-SemiBold',
+    //fontWeight: '600',
     fontSize: 12,
     color: colors.black,
   },
   heading: {
-    fontFamily: 'Merriweather-Regular',
-    fontWeight: '900',
+    fontFamily: 'Merriweather-Black',
+    //fontWeight: '900',
     fontSize: 16,
     color: colors.blueVarient,
   },
@@ -175,8 +181,8 @@ const styles = StyleSheet.create({
   },
   movieName: {
     width: 200,
-    fontFamily: 'Mulish-Regular',
-    fontWeight: '700',
+    fontFamily: 'Mulish-Bold',
+    //fontWeight: '700',
     fontSize: 20,
     color: colors.black,
   },
@@ -190,8 +196,8 @@ const styles = StyleSheet.create({
   },
   play: {
     marginTop: 4,
-    fontFamily: 'Mulish-Regular',
-    fontWeight: '700',
+    fontFamily: 'Mulish-Bold',
+    //fontWeight: '700',
     fontSize: 12,
     color: colors.white,
   },
@@ -203,7 +209,7 @@ const styles = StyleSheet.create({
   rating: {
     marginStart: 4,
     fontFamily: 'Mulish-Regular',
-    fontWeight: '400',
+    //fontWeight: '400',
     fontSize: 12,
     color: colors.varientGrey,
   },
@@ -215,9 +221,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  scrollViewDescription: {
+    marginTop: 8,
+    height: 100,
+  },
   type: {
     fontFamily: 'Mulish-Regular',
-    fontWeight: '400',
+    //fontWeight: '400',
     fontSize: 12,
     color: colors.varientGrey,
   },

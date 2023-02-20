@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
+import {useDispatch} from 'react-redux';
 import {
   ActivityIndicator,
   Dimensions,
@@ -19,6 +20,7 @@ import {
 import {Card, MyStatusBar, NowShowingCard, PopularCard} from '../components';
 import colors from '../config/colors';
 import {API_KEY} from '../utils/apiKey';
+import {setMovies} from '../store/movieSlice';
 
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
@@ -28,6 +30,8 @@ const HomeScreen = ({navigation}) => {
 
   const [loading, setLoading] = useState(false);
   const [trendingMovies, setTrendingMovies] = useState([]);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getTrendingMovies();
@@ -39,6 +43,7 @@ const HomeScreen = ({navigation}) => {
       `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`,
     );
     setTrendingMovies(response.data.results);
+    dispatch(setMovies({movie: response.data.results}));
     console.log('MOVIES', response.data.results);
     setLoading(false);
   };
@@ -89,7 +94,7 @@ const HomeScreen = ({navigation}) => {
     );
   };
   return (
-    <View style={styles.container} nestedScrollEnabled={true}>
+    <View style={styles.container}>
       <MyStatusBar color={'transparent'} />
       <View style={styles.leftView} />
       <View style={styles.rightView} />
@@ -183,15 +188,11 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     justifyContent: 'space-between',
     zIndex: 1,
-    // shadowColor: colors.darkGrey,
-    // shadowOffset: {width: 0, height: 2},
-    // shadowOpacity: 0.8,
-    // shadowRadius: 2,
-    // elevation: 20,
   },
   container: {
     flex: 1,
     paddingTop: StatusBar.currentHeight + 20,
+    backgroundColor: colors.white,
   },
   header: {
     flexDirection: 'row',
@@ -207,8 +208,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   heading: {
-    fontFamily: 'Merriweather-Regular',
-    fontWeight: '900',
+    fontFamily: 'Merriweather-Black',
+    //fontWeight: '900',
     fontSize: 16,
     alignSelf: 'center',
     color: colors.blueVarient,
@@ -222,8 +223,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary2,
   },
   nowShowing: {
-    marginStart: 24,
-    marginTop: 8,
+    marginStart: 16,
     flexGrow: 0,
   },
   nowShowingContainer: {
