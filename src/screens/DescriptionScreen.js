@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {Back, BookmarkCopy3, Play, Star, ThreeDots} from '../assets/svg';
-import {Card, Cast, MyStatusBar} from '../components';
+import {Card, Cast, MyStatusBar, PageHeader} from '../components';
 import colors from '../config/colors';
 
 const DescriptionScreen = ({navigation, route}) => {
@@ -32,14 +32,17 @@ const DescriptionScreen = ({navigation, route}) => {
         style={styles.image}
       />
 
-      <View style={styles.header}>
-        <Back
-          onPress={() => {
-            navigation.navigate(`${back}`);
-          }}
-        />
-        <ThreeDots />
-      </View>
+      <PageHeader
+        customStyles={styles.header}
+        iconLeft={
+          <Back
+            onPress={() => {
+              navigation.navigate(`${back}`);
+            }}
+          />
+        }
+        iconRight={<ThreeDots />}
+      />
 
       <View style={styles.playContainer}>
         <Play />
@@ -153,10 +156,8 @@ const styles = StyleSheet.create({
     color: colors.blueVarient,
   },
   header: {
-    marginTop: StatusBar.currentHeight + 30,
-    marginHorizontal: 24,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    marginTop: StatusBar.currentHeight + 22,
+    marginHorizontal: 16,
   },
   image: {
     position: 'absolute',

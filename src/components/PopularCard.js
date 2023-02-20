@@ -1,8 +1,18 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Clock, Star} from '../assets/svg';
 import colors from '../config/colors';
 import Card from './Card';
+
+const width = Dimensions.get('screen').width;
+const height = Dimensions.get('screen').height;
 
 const PopularCard = ({
   movieImageSrc,
@@ -61,8 +71,8 @@ const styles = StyleSheet.create({
   },
   image: {
     borderRadius: 5,
-    width: 85,
-    height: 120,
+    width: width / 4.5,
+    height: height / 5.8,
   },
   movieDescription: {
     marginStart: 14,

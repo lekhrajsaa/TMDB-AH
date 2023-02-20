@@ -1,7 +1,17 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Star} from '../assets/svg';
 import colors from '../config/colors';
+
+const width = Dimensions.get('screen').width;
+const height = Dimensions.get('screen').height;
 
 const NowShowingCard = ({movieName, moiveImageSrc, movieRating, onPress}) => {
   return (
@@ -28,13 +38,13 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   image: {
-    height: 210,
-    width: 140,
+    height: height / 3.4,
+    width: width / 2.7,
     borderRadius: 5,
   },
   imageContainer: {
-    height: 210,
-    width: 140,
+    height: height / 3.4,
+    width: width / 2.7,
     borderRadius: 5,
     shadowColor: colors.black,
     shadowOpacity: 0.25,
