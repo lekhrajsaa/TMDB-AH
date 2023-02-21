@@ -10,3 +10,8 @@ export {default as Loader} from './Loader';
 export {default as Search} from './Search';
 export {default as MoviesShowing} from './MoviesShowing';
 export {default as PopularMovies} from './PopularMovies';
+export {default as PlayTrailer} from './PlayTrailer';
+export {default as MovieDescription} from './MovieDescription';
+export {default as Rating} from './Rating';
+export {default as MovieType} from './MovieType';
+export {default as Actors} from './Actors';

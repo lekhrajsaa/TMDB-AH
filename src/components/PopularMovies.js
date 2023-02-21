@@ -10,6 +10,9 @@ const PopularMovies = ({
   trendingMovies,
   navigation,
   customStyles,
+  scroll,
+  back,
+  refresh,
 }) => {
   const renderPopular = items => {
     return (
@@ -26,7 +29,7 @@ const PopularMovies = ({
             poster: items.backdrop_path,
             description: items.overview,
             language: items.original_language,
-            back: 'Home',
+            back: back,
           });
         }}
       />
@@ -47,11 +50,13 @@ const PopularMovies = ({
         <FlatList
           style={styles.popular}
           contentContainerStyle={{paddingBottom: bottomBarHeight}}
-          scrollEnabled={false}
+          scrollEnabled={scroll}
           data={trendingMovies}
           showsVerticalScrollIndicator={false}
           keyExtractor={item => item.id}
           renderItem={({item}) => renderPopular(item)}
+          onRefresh={refresh}
+          refreshing={loading}
         />
       )}
     </View>

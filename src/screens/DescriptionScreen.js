@@ -6,10 +6,25 @@ import {
   View,
   Text,
   ScrollView,
+  Dimensions,
 } from 'react-native';
-import {Back, BookmarkCopy3, Play, Star, ThreeDots} from '../assets/svg';
-import {Card, Cast, MyStatusBar, PageHeader} from '../components';
+import {Back, BookmarkCopy3, ThreeDots} from '../assets/svg';
+import {
+  Actors,
+  Card,
+  Cast,
+  ContentHeader,
+  MovieDescription,
+  MovieType,
+  MyStatusBar,
+  PageHeader,
+  PlayTrailer,
+  Rating,
+} from '../components';
 import colors from '../config/colors';
+
+const width = Dimensions.get('screen').width;
+const height = Dimensions.get('screen').height;
 
 const DescriptionScreen = ({navigation, route}) => {
   const {title, rating, poster, description, language, back} = route.params;
@@ -19,6 +34,38 @@ const DescriptionScreen = ({navigation, route}) => {
     es: 'Spanish',
     ab: 'English',
   };
+  const movieTypes = [
+    {
+      name: 'ACTION',
+      varient: 'Secondary',
+    },
+    {
+      name: 'ADVENTURE',
+      varient: 'Secondary',
+    },
+    {
+      name: 'FANTASY',
+      varient: 'Secondary',
+    },
+  ];
+  const allActors = [
+    {
+      name: 'Tom Holland',
+      image: require('../assets/images/Tom.png'),
+    },
+    {
+      name: 'Zendaya',
+      image: require('../assets/images/Zendaya.png'),
+    },
+    {
+      name: 'Benedict Cumberbatch',
+      image: require('../assets/images/Benedict.png'),
+    },
+    {
+      name: 'Jacon Batalon',
+      image: require('../assets/images/Jacon.png'),
+    },
+  ];
 
   return (
     <ScrollView
@@ -44,10 +91,7 @@ const DescriptionScreen = ({navigation, route}) => {
         iconRight={<ThreeDots />}
       />
 
-      <View style={styles.playContainer}>
-        <Play />
-        <Text style={styles.play}>Play Trailer</Text>
-      </View>
+      <PlayTrailer customStyles={styles.playContainer} />
 
       <View style={styles.innerContainer}>
         <View style={styles.movieNameContainer}>
@@ -55,30 +99,22 @@ const DescriptionScreen = ({navigation, route}) => {
           <BookmarkCopy3 />
         </View>
 
-        <View style={styles.ratingContainer}>
-          <Star />
-          <Text style={styles.rating}>{`${rating}/10 IMDb`}</Text>
-        </View>
+        <Rating rating={rating} />
 
-        <View style={styles.movieType}>
-          <Card text={'ACTION'} varient={'Secondary'} />
-          <Card text={'ADVENTURE'} varient={'Secondary'} />
-          <Card text={'FANTASY'} varient={'Secondary'} />
-        </View>
+        <MovieType types={movieTypes} customStyles={styles.movieType} />
 
         <View style={styles.movieDetails}>
-          <View>
-            <Text style={styles.type}>Length</Text>
-            <Text style={styles.detail}>2h 28min</Text>
-          </View>
-          <View style={styles.language}>
-            <Text style={styles.type}>Language</Text>
-            <Text style={styles.detail}>{allLanguages[language]}</Text>
-          </View>
-          <View style={styles.rating2}>
-            <Text style={styles.type}>Rating</Text>
-            <Text style={styles.detail}>PG-13</Text>
-          </View>
+          <MovieDescription type={'Length'} description={'2h 28min'} />
+          <MovieDescription
+            customStyles={styles.language}
+            type={'Language'}
+            description={allLanguages[language]}
+          />
+          <MovieDescription
+            customStyles={styles.rating2}
+            type={'Rating'}
+            description={'PG-13'}
+          />
         </View>
 
         <View style={styles.descriptionContainer}>
@@ -90,43 +126,20 @@ const DescriptionScreen = ({navigation, route}) => {
           </ScrollView>
         </View>
 
-        <View style={styles.castHeaderContainer}>
-          <Text style={styles.heading}>Cast</Text>
-          <Card text={'See more'} />
-        </View>
-
-        <View style={styles.castContainer}>
-          <Cast
-            name={'Tom Holland'}
-            imageSrc={require('../assets/images/Tom.png')}
-          />
-          <Cast
-            name={'Zendaya'}
-            imageSrc={require('../assets/images/Zendaya.png')}
-          />
-          <Cast
-            name={'Benedict Cumberbatch'}
-            imageSrc={require('../assets/images/Benedict.png')}
-          />
-          <Cast
-            name={'Jacon Batalon'}
-            imageSrc={require('../assets/images/Jacon.png')}
-          />
-        </View>
+        <ContentHeader
+          customStyles={styles.castHeaderContainer}
+          heading={'Cast'}
+          cardText="See more"
+        />
+        <Actors allActors={allActors} />
       </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  castContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
   castHeaderContainer: {
     marginTop: 24,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   container: {
     flex: 1,
@@ -164,10 +177,10 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     width: '100%',
-    height: 350,
+    height: height / 2.7,
   },
   innerContainer: {
-    marginTop: 255 - (StatusBar.currentHeight + 155),
+    marginTop: height / 2.7 - (StatusBar.currentHeight + 185),
     padding: 24,
     backgroundColor: colors.white,
     borderTopLeftRadius: 12,
@@ -181,7 +194,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   movieName: {
-    width: 200,
+    width: width / 2,
     fontFamily: 'Mulish-Bold',
     //fontWeight: '700',
     fontSize: 20,
@@ -192,20 +205,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   movieType: {
-    flexDirection: 'row',
     marginTop: 20,
-  },
-  play: {
-    marginTop: 4,
-    fontFamily: 'Mulish-Bold',
-    //fontWeight: '700',
-    fontSize: 12,
-    color: colors.white,
   },
   playContainer: {
     marginTop: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   rating: {
     marginStart: 4,
@@ -224,7 +227,7 @@ const styles = StyleSheet.create({
   },
   scrollViewDescription: {
     marginTop: 8,
-    height: 100,
+    height: height / 7,
   },
   type: {
     fontFamily: 'Mulish-Regular',

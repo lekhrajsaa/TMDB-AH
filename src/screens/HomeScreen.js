@@ -17,8 +17,8 @@ import {
   PopularMovies,
 } from '../components';
 import colors from '../config/colors';
-import {API_KEY} from '../utils/apiKey';
 import {setMovies} from '../store/movieSlice';
+import {getMovies} from '../utils/APIs';
 
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
@@ -36,13 +36,11 @@ const HomeScreen = ({navigation}) => {
   }, []);
   const getTrendingMovies = async () => {
     setLoading(true);
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`,
-    );
+    const response = await axios.get(getMovies);
     setTrendingMovies(response.data.results);
     dispatch(setMovies({movie: response.data.results}));
-    // console.log('MOVIES', response.data.results);
     setLoading(false);
+    // console.log('MOVIES', response.data.results);
   };
 
   return (
@@ -70,6 +68,8 @@ const HomeScreen = ({navigation}) => {
           trendingMovies={trendingMovies}
           bottomBarHeight={bottomBarHeight}
           navigation={navigation}
+          scroll={false}
+          back={'Home'}
         />
       </ScrollView>
       <BottomBar

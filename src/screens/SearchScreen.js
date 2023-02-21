@@ -6,6 +6,7 @@ import {StyleSheet, View, StatusBar} from 'react-native';
 import {BottomBar, PopularMovies, Search} from '../components';
 import colors from '../config/colors';
 import {API_KEY} from '../utils/apiKey';
+import {getMovies, searchThisMovie} from '../utils/APIs';
 
 const SearchScreen = ({navigation}) => {
   const [bottomBarHeight, setBottomBarHeight] = useState(0);
@@ -24,18 +25,14 @@ const SearchScreen = ({navigation}) => {
       setMovies(trendingMovies);
     } else {
       setLoading(true);
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`,
-      );
+      const response = await axios.get(getMovies);
       setMovies(response.data.results);
       setLoading(false);
     }
   };
   const getSearchedMovie = async () => {
     setLoading(true);
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchMovie}`,
-    );
+    const response = await axios.get(`${searchThisMovie}${searchMovie}`);
     setMovies(response.data.results);
     setLoading(false);
   };
@@ -54,6 +51,12 @@ const SearchScreen = ({navigation}) => {
           trendingMovies={movies}
           bottomBarHeight={bottomBarHeight}
           navigation={navigation}
+          scroll={true}
+          back={'Search'}
+          refresh={() => {
+            getTrendingMovies();
+            setSearchMovie('');
+          }}
         />
       </View>
 
