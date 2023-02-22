@@ -17,8 +17,6 @@ _This mobile application is to search trending movies and know about them._
 
 ## Screenshots
 
-<br><br>
-
 #### HomeScreen
 
 <img src="Screenshots/HomeScreen.png" alt="alt" width="180" style="margin:10px"/>
