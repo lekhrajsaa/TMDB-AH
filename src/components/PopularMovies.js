@@ -13,10 +13,16 @@ const PopularMovies = ({
   scroll,
   back,
   refresh,
+  headingID,
+  cardID,
+  flatListID,
+  testID,
+  popularMoviesTestID,
 }) => {
   const renderPopular = items => {
     return (
       <PopularCard
+        testID={`${items.original_title}${testID}`}
         movieImageSrc={`https://image.tmdb.org/t/p/w500${items.poster_path}`}
         movieName={items.original_title}
         movieRating={items.vote_average}
@@ -37,8 +43,10 @@ const PopularMovies = ({
   };
 
   return (
-    <View style={{...customStyles}}>
+    <View style={{...customStyles}} testID={popularMoviesTestID}>
       <ContentHeader
+        headingID={headingID}
+        cardID={cardID}
         customStyles={styles.headerMovie}
         heading={'Popular'}
         cardText="See more"
@@ -48,6 +56,7 @@ const PopularMovies = ({
         <Loader style={styles.loader} />
       ) : (
         <FlatList
+          testID={flatListID}
           style={styles.popular}
           contentContainerStyle={{paddingBottom: bottomBarHeight}}
           scrollEnabled={scroll}

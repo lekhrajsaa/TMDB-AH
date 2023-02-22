@@ -3,10 +3,18 @@ import {Keyboard, StyleSheet, TextInput, View} from 'react-native';
 import colors from '../config/colors';
 import {SearchBar} from '../assets/svg';
 
-const Search = ({searchMovie, setSearchMovie, getSearchedMovie}) => {
+const Search = ({
+  searchMovie,
+  setSearchMovie,
+  getSearchedMovie,
+  testID,
+  InputTestID,
+  searchTestID,
+}) => {
   return (
-    <View style={styles.searchBar}>
+    <View style={styles.searchBar} testID={testID}>
       <TextInput
+        testID={InputTestID}
         style={styles.searchInput}
         value={searchMovie}
         placeholder="Search movie"
@@ -20,6 +28,7 @@ const Search = ({searchMovie, setSearchMovie, getSearchedMovie}) => {
         }}
       />
       <SearchBar
+        testID={searchTestID}
         customStyles={styles.searchIcon}
         onPress={() => {
           getSearchedMovie();

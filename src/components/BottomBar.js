@@ -12,9 +12,13 @@ const BottomBar = ({
   colorBookmark,
   colorSearch,
   colorBookmark2,
+  testID,
+  testIDBookmark,
+  testIDSearch,
 }) => {
   return (
     <View
+      testID={testID}
       onLayout={({
         nativeEvent: {
           layout: {height},
@@ -23,8 +27,16 @@ const BottomBar = ({
         setBottomBarHeight(height);
       }}
       style={{...styles.bottomBar, ...customStyles}}>
-      <Bookmark onPress={onPressBookmark} color={colorBookmark} />
-      <Search onPress={onPressSearch} color={colorSearch} />
+      <Bookmark
+        testID={testIDBookmark}
+        onPress={onPressBookmark}
+        color={colorBookmark}
+      />
+      <Search
+        testID={testIDSearch}
+        onPress={onPressSearch}
+        color={colorSearch}
+      />
       <BookmarkCopy2 onPress={onPressBookmark2} color={colorBookmark2} />
     </View>
   );

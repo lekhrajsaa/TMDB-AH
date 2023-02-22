@@ -3,9 +3,9 @@ import {StyleSheet, Text, View} from 'react-native';
 import {Star} from '../assets/svg';
 import colors from '../config/colors';
 
-const Rating = ({rating}) => {
+const Rating = ({rating, testID}) => {
   return (
-    <View style={styles.ratingContainer}>
+    <View style={styles.ratingContainer} testID={testID}>
       <Star />
       <Text style={styles.rating}>{`${rating}/10 IMDb`}</Text>
     </View>

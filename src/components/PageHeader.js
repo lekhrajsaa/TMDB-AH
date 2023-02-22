@@ -2,11 +2,19 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import colors from '../config/colors';
 
-const PageHeader = ({customStyles, heading, iconLeft, iconRight}) => {
+const PageHeader = ({
+  customStyles,
+  heading,
+  iconLeft,
+  iconRight,
+  headingID,
+}) => {
   return (
     <View style={{...styles.header, ...customStyles}}>
       {iconLeft}
-      <Text style={styles.heading}>{heading}</Text>
+      <Text style={styles.heading} testID={headingID}>
+        {heading}
+      </Text>
       {iconRight}
     </View>
   );

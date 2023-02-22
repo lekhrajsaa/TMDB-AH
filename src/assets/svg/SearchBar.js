@@ -2,9 +2,10 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import Svg, {Path} from 'react-native-svg';
 
-const SearchBar = ({onPress, customStyles}) => {
+const SearchBar = ({onPress, customStyles, testID}) => {
   return (
     <TouchableOpacity
+      testID={testID}
       style={{...customStyles}}
       activeOpacity={0.4}
       onPress={onPress}>

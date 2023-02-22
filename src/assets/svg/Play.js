@@ -2,9 +2,12 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import Svg, {Path} from 'react-native-svg';
 
-const Play = props => {
+const Play = ({testID}) => {
   return (
-    <TouchableOpacity style={styles.container} activeOpacity={0.5}>
+    <TouchableOpacity
+      style={styles.container}
+      activeOpacity={0.5}
+      testID={testID}>
       <Svg
         width="45"
         height="45"

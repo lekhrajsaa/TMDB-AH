@@ -3,11 +3,19 @@ import {StyleSheet, Text, View} from 'react-native';
 import colors from '../config/colors';
 import Card from './Card';
 
-const ContentHeader = ({customStyles, heading, cardText}) => {
+const ContentHeader = ({
+  customStyles,
+  heading,
+  cardText,
+  headingID,
+  cardID,
+}) => {
   return (
     <View style={{...styles.headerMovie, ...customStyles}}>
-      <Text style={styles.heading}>{heading}</Text>
-      <Card text={cardText} />
+      <Text style={styles.heading} testID={headingID}>
+        {heading}
+      </Text>
+      <Card text={cardText} cardID={cardID} />
     </View>
   );
 };

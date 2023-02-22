@@ -2,9 +2,10 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import colors from '../config/colors';
 
-const Card = ({text, varient}) => {
+const Card = ({text, varient, cardID}) => {
   return (
     <TouchableOpacity
+      testID={cardID}
       activeOpacity={varient === 'Secondary' ? 1 : 0.5}
       style={{
         ...styles.container,

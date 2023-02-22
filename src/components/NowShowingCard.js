@@ -13,9 +13,16 @@ import colors from '../config/colors';
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
 
-const NowShowingCard = ({movieName, moiveImageSrc, movieRating, onPress}) => {
+const NowShowingCard = ({
+  movieName,
+  moiveImageSrc,
+  movieRating,
+  onPress,
+  testID,
+}) => {
   return (
     <TouchableOpacity
+      testID={testID}
       style={styles.container}
       onPress={onPress}
       activeOpacity={0.8}>
@@ -31,20 +38,19 @@ const NowShowingCard = ({movieName, moiveImageSrc, movieRating, onPress}) => {
     </TouchableOpacity>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 8,
     marginTop: 8,
   },
   image: {
-    height: height / 3.4,
-    width: width / 2.7,
+    height: (height / 812) * 220,
+    width: (width / 375) * 143,
     borderRadius: 5,
   },
   imageContainer: {
-    height: height / 3.4,
-    width: width / 2.7,
+    height: (height / 812) * 220,
+    width: (width / 375) * 143,
     borderRadius: 5,
     shadowColor: colors.black,
     shadowOpacity: 0.25,

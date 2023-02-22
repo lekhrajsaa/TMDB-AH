@@ -44,25 +44,33 @@ const HomeScreen = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="HomeScreen">
       <MyStatusBar color={'transparent'} />
-      <View style={styles.leftView} />
-      <View style={styles.rightView} />
+      <View style={styles.leftView} testID="LeftView" />
+      <View style={styles.rightView} testID="RightView" />
 
       <PageHeader
+        headingID={'FilmKu'}
         customStyles={styles.header}
         heading={'FilmKu'}
-        iconLeft={<Menu />}
-        iconRight={<Notification />}
+        iconLeft={<Menu testID={'Menu'} />}
+        iconRight={<Notification testID={'Notification'} />}
       />
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} testID="Popular_Movies">
         <MoviesShowing
+          headingID={'NowShowing'}
+          cardID={'NowShowingCard'}
+          flatListID={'NowShowingFlatList'}
           loading={loading}
           trendingMovies={trendingMovies}
           navigation={navigation}
         />
         <PopularMovies
+          testID={'Home'}
+          headingID={'Popular'}
+          cardID={'PopularCard'}
+          flatListID={'PopularFlatList'}
           customStyles={styles.popularMovies}
           loading={loading}
           trendingMovies={trendingMovies}
@@ -73,6 +81,9 @@ const HomeScreen = ({navigation}) => {
         />
       </ScrollView>
       <BottomBar
+        testID="BottomBar"
+        testIDBookmark="HomeScreenIcon"
+        testIDSearch="SearchScreenIcon"
         customStyles={styles.bottomBar}
         setBottomBarHeight={setBottomBarHeight}
         colorBookmark={colors.selected}

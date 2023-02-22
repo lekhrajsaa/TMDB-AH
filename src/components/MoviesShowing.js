@@ -4,10 +4,18 @@ import ContentHeader from './ContentHeader';
 import Loader from './Loader';
 import NowShowingCard from './NowShowingCard';
 
-const MoviesShowing = ({loading, trendingMovies, navigation}) => {
+const MoviesShowing = ({
+  loading,
+  trendingMovies,
+  navigation,
+  flatListID,
+  headingID,
+  cardID,
+}) => {
   const renderMovies = items => {
     return (
       <NowShowingCard
+        testID={items.original_title}
         movieName={items.original_title}
         movieRating={items.vote_average}
         moiveImageSrc={`https://image.tmdb.org/t/p/w500${items.poster_path}`}
@@ -27,6 +35,8 @@ const MoviesShowing = ({loading, trendingMovies, navigation}) => {
   return (
     <View>
       <ContentHeader
+        headingID={headingID}
+        cardID={cardID}
         customStyles={styles.headerMovie}
         heading={'Now Showing'}
         cardText="See more"
@@ -35,6 +45,7 @@ const MoviesShowing = ({loading, trendingMovies, navigation}) => {
         <Loader style={styles.loader} />
       ) : (
         <FlatList
+          testID={flatListID}
           style={styles.nowShowing}
           contentContainerStyle={styles.nowShowingContainer}
           data={trendingMovies}

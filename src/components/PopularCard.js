@@ -21,9 +21,11 @@ const PopularCard = ({
   movieDuration,
   movieType,
   onPress,
+  testID,
 }) => {
   return (
     <TouchableOpacity
+      testID={testID}
       style={styles.container}
       onPress={onPress}
       activeOpacity={0.8}>
@@ -71,8 +73,8 @@ const styles = StyleSheet.create({
   },
   image: {
     borderRadius: 5,
-    width: width / 4.5,
-    height: height / 5.8,
+    width: (width / 375) * 85,
+    height: (height / 812) * 120,
   },
   movieDescription: {
     marginStart: 14,

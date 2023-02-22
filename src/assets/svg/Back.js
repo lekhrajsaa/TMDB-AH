@@ -2,9 +2,12 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import Svg, {Path} from 'react-native-svg';
 
-const Back = ({onPress}) => {
+const Back = ({onPress, testID}) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={onPress}
+      testID={testID}>
       <Svg
         width="24"
         height="24"

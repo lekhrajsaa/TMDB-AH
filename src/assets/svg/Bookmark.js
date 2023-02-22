@@ -3,9 +3,12 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 import Svg, {G, Path} from 'react-native-svg';
 import colors from '../../config/colors';
 
-const Bookmark = ({color, onPress}) => {
+const Bookmark = ({color, onPress, testID}) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={onPress}
+      testID={testID}>
       <Svg
         width="35"
         height="35"

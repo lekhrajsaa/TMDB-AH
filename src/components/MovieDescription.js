@@ -2,9 +2,9 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import colors from '../config/colors';
 
-const MovieDescription = ({customStyles, type, description}) => {
+const MovieDescription = ({customStyles, type, description, testID}) => {
   return (
-    <View style={{...customStyles}}>
+    <View style={{...customStyles}} testID={testID}>
       <Text style={styles.type}>{type}</Text>
       <Text style={styles.detail}>{description}</Text>
     </View>

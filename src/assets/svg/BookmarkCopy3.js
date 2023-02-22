@@ -2,9 +2,9 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import Svg, {Path} from 'react-native-svg';
 
-const BookmarkCopy3 = props => {
+const BookmarkCopy3 = ({testID}) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID={testID}>
       <Svg
         width="24"
         height="24"

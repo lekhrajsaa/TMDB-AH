@@ -2,9 +2,9 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import Cast from './Cast';
 
-const Actors = ({allActors}) => {
+const Actors = ({allActors, testID}) => {
   return (
-    <View style={styles.castContainer}>
+    <View style={styles.castContainer} testID={testID}>
       {allActors.map((data, index) => (
         <Cast key={index} name={data.name} imageSrc={data.image} />
       ))}

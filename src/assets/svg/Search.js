@@ -2,9 +2,9 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import Svg, {Path} from 'react-native-svg';
 
-const SearchIcon = ({onPress, color}) => {
+const SearchIcon = ({onPress, color, testID}) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} testID={testID}>
       <Svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 50 50"

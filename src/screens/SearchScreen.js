@@ -39,13 +39,18 @@ const SearchScreen = ({navigation}) => {
 
   return (
     <>
-      <View style={styles.container}>
+      <View style={styles.container} testID={'SearchScreen'}>
         <Search
+          testID={'SearchBar'}
+          InputTestID={'SearchHere'}
+          searchTestID={'SearchIcon'}
           searchMovie={searchMovie}
           setSearchMovie={setSearchMovie}
           getSearchedMovie={getSearchedMovie}
         />
         <PopularMovies
+          testID={'SearchScreen'}
+          popularMoviesTestID="SearchScreenPopularMovies"
           customStyles={styles.popularMovies}
           loading={loading}
           trendingMovies={movies}
@@ -61,6 +66,7 @@ const SearchScreen = ({navigation}) => {
       </View>
 
       <BottomBar
+        testIDBookmark="GoBackHome"
         customStyles={styles.bottomBar}
         setBottomBarHeight={setBottomBarHeight}
         colorBookmark={colors.notSelected}

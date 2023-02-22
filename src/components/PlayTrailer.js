@@ -3,11 +3,13 @@ import {StyleSheet, Text, View} from 'react-native';
 import {Play} from '../assets/svg';
 import colors from '../config/colors';
 
-const PlayTrailer = ({customStyles}) => {
+const PlayTrailer = ({customStyles, testID, textID}) => {
   return (
     <View style={{...styles.playContainer, ...customStyles}}>
-      <Play />
-      <Text style={styles.play}>Play Trailer</Text>
+      <Play testID={testID} />
+      <Text style={styles.play} testID={textID}>
+        Play Trailer
+      </Text>
     </View>
   );
 };

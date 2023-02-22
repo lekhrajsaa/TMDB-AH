@@ -69,12 +69,14 @@ const DescriptionScreen = ({navigation, route}) => {
 
   return (
     <ScrollView
+      testID="DescriptionScreen"
       style={styles.container}
       showsVerticalScrollIndicator={false}
       nestedScrollEnabled={false}>
       <MyStatusBar color={'transparent'} barstyle={true} />
 
       <Image
+        testID="BackgroundImage"
         source={{uri: `https://image.tmdb.org/t/p/w500${poster}`}}
         style={styles.image}
       />
@@ -83,34 +85,51 @@ const DescriptionScreen = ({navigation, route}) => {
         customStyles={styles.header}
         iconLeft={
           <Back
+            testID="GoBack"
             onPress={() => {
               navigation.navigate(`${back}`);
             }}
           />
         }
-        iconRight={<ThreeDots />}
+        iconRight={<ThreeDots testID="ThreeDots" />}
       />
 
-      <PlayTrailer customStyles={styles.playContainer} />
+      <PlayTrailer
+        customStyles={styles.playContainer}
+        testID="PlayTrailerBtn"
+        textID="PlayTrailerText"
+      />
 
       <View style={styles.innerContainer}>
         <View style={styles.movieNameContainer}>
-          <Text style={styles.movieName}>{title}</Text>
-          <BookmarkCopy3 />
+          <Text style={styles.movieName} testID={'MovieName'}>
+            {title}
+          </Text>
+          <BookmarkCopy3 testID={'BookmarkCopy3'} />
         </View>
 
-        <Rating rating={rating} />
+        <Rating testID={'Rating'} rating={rating} />
 
-        <MovieType types={movieTypes} customStyles={styles.movieType} />
+        <MovieType
+          testID={'MovieTypes'}
+          types={movieTypes}
+          customStyles={styles.movieType}
+        />
 
         <View style={styles.movieDetails}>
-          <MovieDescription type={'Length'} description={'2h 28min'} />
           <MovieDescription
+            testID={'Length'}
+            type={'Length'}
+            description={'2h 28min'}
+          />
+          <MovieDescription
+            testID={'Language'}
             customStyles={styles.language}
             type={'Language'}
             description={allLanguages[language]}
           />
           <MovieDescription
+            testID={'RatingDescription'}
             customStyles={styles.rating2}
             type={'Rating'}
             description={'PG-13'}
@@ -118,8 +137,11 @@ const DescriptionScreen = ({navigation, route}) => {
         </View>
 
         <View style={styles.descriptionContainer}>
-          <Text style={styles.heading}>Description</Text>
+          <Text style={styles.heading} testID={'HeadingDescription'}>
+            Description
+          </Text>
           <ScrollView
+            testID="Description"
             style={styles.scrollViewDescription}
             nestedScrollEnabled={true}>
             <Text style={styles.description}>{description}</Text>
@@ -127,11 +149,13 @@ const DescriptionScreen = ({navigation, route}) => {
         </View>
 
         <ContentHeader
+          headingID={'Cast'}
+          cardID={'DescriptionScreenSeemore'}
           customStyles={styles.castHeaderContainer}
           heading={'Cast'}
           cardText="See more"
         />
-        <Actors allActors={allActors} />
+        <Actors testID={'Actors'} allActors={allActors} />
       </View>
     </ScrollView>
   );
