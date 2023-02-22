@@ -14,7 +14,9 @@ _This mobile application is to search trending movies and know about them._
 <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Redux.png" alt="nodejs" width="80" height="60" />
 
 <br>
+
 ## Screenshots
+
 <br><br>
 
 #### HomeScreen
